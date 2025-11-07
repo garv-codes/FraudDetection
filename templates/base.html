@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Fraud Detection System{% endblock %}</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+  </head>
+  <body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+      <div class="nav-container">
+        <div class="nav-logo">
+          <h2>🏦 Fraud Detection System</h2>
+        </div>
+        <ul class="nav-menu">
+          <li><a href="{{ url_for('home') }}">Home</a></li>
+          <li>
+            <a href="{{ url_for('add_transaction') }}">Add Transaction</a>
+          </li>
+          <li>
+            <a href="{{ url_for('view_transactions') }}">View Transactions</a>
+          </li>
+          <li><a href="{{ url_for('fraud_alerts') }}">Fraud Alerts</a></li>
+          <li><a href="{{ url_for('about') }}">About</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %} {% if
+    messages %}
+    <div class="flash-container">
+      {% for category, message in messages %}
+      <div class="flash-message flash-{{ category }}">
+        <span>{{ message }}</span>
+        <button
+          class="flash-close"
+          onclick="this.parentElement.style.display='none'"
+        >
+          ×
+        </button>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %} {% endwith %}
+
+    <!-- Main Content -->
+    <main class="main-content">{% block content %}{% endblock %}</main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>
+        Made by Rishabh Jain | NSUT | DBMS Project ©
+        <span id="current-year"></span>
+      </p>
+    </footer>
+
+    <script>
+      // Set current year in footer
+      document.getElementById("current-year").textContent =
+        new Date().getFullYear();
+    </script>
+  </body>
+</html>

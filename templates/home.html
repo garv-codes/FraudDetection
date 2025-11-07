@@ -1,0 +1,65 @@
+{% extends "base.html" %} {% block title %}Home - Fraud Detection System{%
+endblock %} {% block content %}
+<div class="container">
+  <div class="card hero-card">
+    <h1>Fraud Detection System for Banking Transactions</h1>
+    <p class="subtitle">Advanced Database Management System Project</p>
+    <div class="divider"></div>
+    <p class="description">
+      This system automatically detects suspicious banking transactions using
+      intelligent database triggers and real-time monitoring. Protect your bank
+      from fraudulent activities with automated alerts and comprehensive
+      transaction analysis.
+    </p>
+  </div>
+
+  <div class="card team-card">
+    <h2>👥 Team Members</h2>
+    <div class="team-list">
+      <div class="team-member">
+        <strong>Rishabh Jain</strong>
+        <span>NSUT</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card features-card">
+    <h2>✨ Key Features</h2>
+    <div class="features-grid">
+      <div class="feature-item">
+        <h3>🔍 High Amount Detection</h3>
+        <p>Automatically flags transactions exceeding ₹10,000</p>
+      </div>
+      <div class="feature-item">
+        <h3>⚡ Rapid Transaction Detection</h3>
+        <p>
+          Detects more than 5 transactions within 5 minutes for the same user
+        </p>
+      </div>
+      <div class="feature-item">
+        <h3>📊 Real-time Monitoring</h3>
+        <p>Instant fraud alerts using database triggers</p>
+      </div>
+      <div class="feature-item">
+        <h3>🔄 Full CRUD Operations</h3>
+        <p>Create, Read, Update, and Delete transactions seamlessly</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card quick-actions">
+    <h2>🚀 Quick Actions</h2>
+    <div class="action-buttons">
+      <a href="{{ url_for('add_transaction') }}" class="btn btn-primary"
+        >Add New Transaction</a
+      >
+      <a href="{{ url_for('view_transactions') }}" class="btn btn-secondary"
+        >View All Transactions</a
+      >
+      <a href="{{ url_for('fraud_alerts') }}" class="btn btn-danger"
+        >Check Fraud Alerts</a
+      >
+    </div>
+  </div>
+</div>
+{% endblock %}

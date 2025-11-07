@@ -1,0 +1,189 @@
+{% extends "base.html" %} {% block title %}About - Fraud Detection System{%
+endblock %} {% block content %}
+<div class="container">
+  <div class="card">
+    <h1>📖 About This Project</h1>
+
+    <section class="about-section">
+      <h2>🎯 Purpose</h2>
+      <p>
+        The <strong>Fraud Detection System for Banking Transactions</strong> is
+        a comprehensive Database Management System (DBMS) project designed to
+        automatically identify and flag suspicious banking transactions in
+        real-time. This system helps financial institutions protect their
+        customers and prevent fraudulent activities through intelligent database
+        triggers and automated monitoring.
+      </p>
+    </section>
+
+    <section class="about-section">
+      <h2>🌍 Real-World Use Cases</h2>
+      <div class="use-cases">
+        <div class="use-case-item">
+          <h3>🏦 Banking & Financial Services</h3>
+          <p>
+            Monitor and prevent fraudulent credit/debit card transactions,
+            unauthorized transfers, and suspicious account activities.
+          </p>
+        </div>
+        <div class="use-case-item">
+          <h3>💳 Payment Processing</h3>
+          <p>
+            Real-time fraud detection for online payment gateways, e-commerce
+            platforms, and digital wallets.
+          </p>
+        </div>
+        <div class="use-case-item">
+          <h3>🔒 Security & Compliance</h3>
+          <p>
+            Ensure regulatory compliance with financial transaction monitoring
+            requirements (KYC, AML policies).
+          </p>
+        </div>
+        <div class="use-case-item">
+          <h3>📊 Analytics & Reporting</h3>
+          <p>
+            Generate insights on transaction patterns, identify potential
+            security threats, and improve fraud prevention strategies.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="about-section">
+      <h2>💻 DBMS Concepts Implemented</h2>
+      <div class="concepts-grid">
+        <div class="concept-card">
+          <h3>1. CRUD Operations</h3>
+          <ul>
+            <li>
+              <strong>CREATE:</strong> Insert new transactions via Add
+              Transaction form
+            </li>
+            <li>
+              <strong>READ:</strong> View all transactions and fraud alerts
+            </li>
+            <li><strong>UPDATE:</strong> Edit existing transaction details</li>
+            <li>
+              <strong>DELETE:</strong> Remove transactions from the database
+            </li>
+          </ul>
+        </div>
+
+        <div class="concept-card">
+          <h3>2. Joins</h3>
+          <ul>
+            <li>
+              LEFT JOIN used in <code>vw_suspicious</code> view to combine
+              fraud_alerts with transactions table
+            </li>
+            <li>
+              Provides comprehensive information by linking related records
+            </li>
+          </ul>
+        </div>
+
+        <div class="concept-card">
+          <h3>3. Aggregate Functions</h3>
+          <ul>
+            <li>
+              <code>COUNT(*)</code> used in triggers to count rapid transactions
+            </li>
+            <li>Aggregate calculations for fraud detection logic</li>
+          </ul>
+        </div>
+
+        <div class="concept-card">
+          <h3>4. Subqueries</h3>
+          <ul>
+            <li>
+              Nested SELECT queries in triggers to check transaction patterns
+            </li>
+            <li>
+              Subqueries validate conditions before inserting fraud alerts
+            </li>
+          </ul>
+        </div>
+
+        <div class="concept-card">
+          <h3>5. Views</h3>
+          <ul>
+            <li>
+              <code>vw_suspicious</code> view combines fraud_alerts and
+              transactions
+            </li>
+            <li>Simplifies complex queries and provides ready-to-use data</li>
+            <li>
+              Used in Fraud Alerts page for displaying comprehensive information
+            </li>
+          </ul>
+        </div>
+
+        <div class="concept-card">
+          <h3>6. Indexes</h3>
+          <ul>
+            <li>Index on <code>user_id</code> for faster user-based queries</li>
+            <li>
+              Index on <code>txn_time</code> for efficient time-based searches
+            </li>
+            <li>
+              Composite index on <code>(user_id, txn_time)</code> for rapid
+              transaction detection
+            </li>
+          </ul>
+        </div>
+
+        <div class="concept-card">
+          <h3>7. Triggers</h3>
+          <ul>
+            <li>
+              <strong>trg_flag_high_amount:</strong> Automatically flags
+              transactions exceeding ₹10,000
+            </li>
+            <li>
+              <strong>trg_flag_rapid_txns:</strong> Detects more than 5
+              transactions within 5 minutes for the same user
+            </li>
+            <li>Triggers execute automatically after INSERT operations</li>
+          </ul>
+        </div>
+
+        <div class="concept-card">
+          <h3>8. Stored Procedures (Conceptual)</h3>
+          <ul>
+            <li>Trigger logic acts as stored procedures in SQLite</li>
+            <li>Encapsulates business logic at database level</li>
+            <li>Ensures data integrity and automated fraud detection</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="about-section">
+      <h2>🔧 Technical Stack</h2>
+      <div class="tech-stack">
+        <div class="tech-item"><strong>Backend:</strong> Flask (Python)</div>
+        <div class="tech-item"><strong>Database:</strong> SQLite3</div>
+        <div class="tech-item">
+          <strong>Frontend:</strong> HTML5, CSS3, Jinja2 Templates
+        </div>
+        <div class="tech-item">
+          <strong>Architecture:</strong> MVC Pattern with Database Triggers
+        </div>
+      </div>
+    </section>
+
+    <section class="about-section">
+      <h2>👨‍💻 Developer</h2>
+      <p><strong>Rishabh Jain</strong></p>
+      <p>NSUT (Netaji Subhas University of Technology)</p>
+      <p>B.Tech Information Technology - 2nd Year</p>
+      <p>DBMS Course Project</p>
+    </section>
+
+    <div class="back-link">
+      <a href="{{ url_for('home') }}" class="btn btn-primary">← Back to Home</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,108 @@
+{% extends "base.html" %} {% block title %}Fraud Alerts - Fraud Detection
+System{% endblock %} {% block content %}
+<div class="container">
+  <div class="card">
+    <div class="page-header">
+      <h1>🚨 Fraud Alerts</h1>
+      <p class="subtitle">
+        Suspicious transactions detected by our automated system
+      </p>
+    </div>
+
+    {% if alerts %}
+    <div class="alert-banner">
+      <strong>⚠️ Warning:</strong> {{ alerts|length }} suspicious transaction(s)
+      detected!
+    </div>
+
+    <div class="table-container">
+      <table class="data-table fraud-table">
+        <thead>
+          <tr>
+            <th>Transaction ID</th>
+            <th>User ID</th>
+            <th>Amount (₹)</th>
+            <th>Location</th>
+            <th>Transaction Time</th>
+            <th>Type</th>
+            <th>Reason</th>
+            <th>Flagged At</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for alert in alerts %}
+          <tr class="fraud-row">
+            <td><strong>{{ alert.transaction_id }}</strong></td>
+            <td>{{ alert.user_id }}</td>
+            <td class="amount-cell danger-amount">
+              ₹{{ "%.2f"|format(alert.amount) }}
+            </td>
+            <td>{{ alert.location if alert.location else 'N/A' }}</td>
+            <td>
+              {{ alert.txn_time if alert.txn_time else alert.flagged_at }}
+            </td>
+            <td>
+              {% if alert.txn_type %}
+              <span
+                class="badge badge-{{ 'success' if alert.txn_type == 'Credit' else 'warning' }}"
+              >
+                {{ alert.txn_type }}
+              </span>
+              {% else %}
+              <span class="badge">N/A</span>
+              {% endif %}
+            </td>
+            <td class="reason-cell">
+              <span class="reason-text">{{ alert.reason }}</span>
+            </td>
+            <td>{{ alert.flagged_at }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="fraud-summary">
+      <h3>📊 Fraud Detection Summary</h3>
+      <div class="summary-grid">
+        <div class="summary-item">
+          <span class="summary-label">Total Alerts</span>
+          <span class="summary-value danger">{{ alerts|length }}</span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label">High Amount Alerts</span>
+          <span class="summary-value">
+            {% set high_amount_count = [] %} {% for alert in alerts %} {% if
+            'High amount' in alert.reason %} {% set _ =
+            high_amount_count.append(1) %} {% endif %} {% endfor %} {{
+            high_amount_count|length }}
+          </span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label">Rapid Transaction Alerts</span>
+          <span class="summary-value">
+            {% set rapid_count = [] %} {% for alert in alerts %} {% if 'Rapid'
+            in alert.reason %} {% set _ = rapid_count.append(1) %} {% endif %}
+            {% endfor %} {{ rapid_count|length }}
+          </span>
+        </div>
+      </div>
+    </div>
+    {% else %}
+    <div class="empty-state success-state">
+      <h2>✅ All Clear!</h2>
+      <p>No suspicious transactions detected. Your system is secure.</p>
+      <a href="{{ url_for('add_transaction') }}" class="btn btn-primary"
+        >Add Transaction</a
+      >
+    </div>
+    {% endif %}
+
+    <div class="action-links">
+      <a href="{{ url_for('view_transactions') }}" class="btn btn-secondary"
+        >← Back to Transactions</a
+      >
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,90 @@
+{% extends "base.html" %} {% block title %}View Transactions - Fraud Detection
+System{% endblock %} {% block content %}
+<div class="container">
+  <div class="card">
+    <div class="page-header">
+      <h1>📋 All Transactions</h1>
+      <a href="{{ url_for('add_transaction') }}" class="btn btn-primary"
+        >➕ Add New Transaction</a
+      >
+    </div>
+
+    {% if transactions %}
+    <div class="table-container">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Transaction ID</th>
+            <th>User ID</th>
+            <th>Amount (₹)</th>
+            <th>Location</th>
+            <th>Transaction Time</th>
+            <th>Type</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for txn in transactions %}
+          <tr class="{% if txn.status == 'FLAGGED' %}flagged-row{% endif %}">
+            <td><strong>{{ txn.transaction_id }}</strong></td>
+            <td>{{ txn.user_id }}</td>
+            <td class="amount-cell">₹{{ "%.2f"|format(txn.amount) }}</td>
+            <td>{{ txn.location }}</td>
+            <td>{{ txn.txn_time }}</td>
+            <td>
+              <span
+                class="badge badge-{{ 'success' if txn.txn_type == 'Credit' else 'warning' }}"
+              >
+                {{ txn.txn_type }}
+              </span>
+            </td>
+            <td>
+              <span
+                class="badge badge-{{ 'danger' if txn.status == 'FLAGGED' else 'success' }}"
+              >
+                {{ txn.status }}
+              </span>
+            </td>
+            <td class="actions-cell">
+              <a
+                href="{{ url_for('update_transaction', transaction_id=txn.transaction_id) }}"
+                class="btn btn-small btn-edit"
+                >✏️ Edit</a
+              >
+              <a
+                href="{{ url_for('delete_transaction', transaction_id=txn.transaction_id) }}"
+                class="btn btn-small btn-delete"
+                onclick="return confirm('Are you sure you want to delete this transaction?');"
+              >
+                🗑️ Delete</a
+              >
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="table-info">
+      <p><strong>Total Transactions:</strong> {{ transactions|length }}</p>
+      <p>
+        <strong>Flagged Transactions:</strong>
+        {% set flagged_count = [] %} {% for txn in transactions %} {% if
+        txn.status == 'FLAGGED' %} {% set _ = flagged_count.append(1) %} {%
+        endif %} {% endfor %} {{ flagged_count|length }}
+      </p>
+    </div>
+    {% else %}
+    <div class="empty-state">
+      <p>
+        📭 No transactions found.
+        <a href="{{ url_for('add_transaction') }}"
+          >Add your first transaction</a
+        >
+      </p>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
