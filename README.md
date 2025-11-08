@@ -16,7 +16,6 @@ Technical Stack:
     Database: SQLite3 (Central to trigger implementation)
     
 
-
 Key Database Features: The application relies on advanced DBMS concepts for reliability:
     Triggers: Ensure instant fraud checks upon data entry.
     Indexes: Optimize query performance on user and time columns.
