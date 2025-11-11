@@ -13,8 +13,7 @@ Detection Criteria: The system actively monitors for two specific fraud types:
 Technical Stack:
     Frontend: HTML,CSS
     Backend: Flask (Python)
-    Database: SQLite3 (Central to trigger implementation)
-    
+    Database: SQLite3 
 
 Key Database Features: The application relies on advanced DBMS concepts for reliability:
     Triggers: Ensure instant fraud checks upon data entry.
